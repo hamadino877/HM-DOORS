@@ -1,0 +1,201 @@
+import { Phone, MapPin, Clock, Package } from 'lucide-react'
+
+const contactInfo = [
+  {
+    icon: Phone,
+    title: 'الهاتف / واتساب',
+    content: (
+      <>
+        <a href="tel:01024209955" className="text-[hsl(var(--cream-dim))] hover:text-[hsl(var(--gold))] transition-colors block">01024209955</a>
+        <a href="tel:01228066083" className="text-[hsl(var(--cream-dim))] hover:text-[hsl(var(--gold))] transition-colors block">01228066083</a>
+      </>
+    ),
+  },
+  {
+    icon: MapPin,
+    title: 'العنوان',
+    content: (
+      <p className="text-[hsl(var(--cream-dim))]">
+        المحلة الكبرى - شارع التحرير<br />
+        بجوار مسجد المتولي<br />
+        عمارة محمد محي الدين
+      </p>
+    ),
+  },
+  {
+    icon: Clock,
+    title: 'ساعات العمل',
+    content: (
+      <p className="text-[hsl(var(--cream-dim))]">
+        السبت - الخميس<br />
+        9:00 صباحاً - 10:00 مساءً
+      </p>
+    ),
+  },
+  {
+    icon: Package,
+    title: 'خدماتنا',
+    content: (
+      <p className="text-[hsl(var(--cream-dim))]">
+        أبواب HPL &bull; ألواح ميلامين<br />
+        ألواح جدارية &bull; بنلات
+      </p>
+    ),
+  },
+]
+
+const productOptions = [
+  { value: 'غير محدد', label: 'اختر نوع الباب' },
+  { value: 'باب مصفح فيلا', label: 'باب مصفح للفلل والقصور' },
+  { value: 'باب مصفح تركي', label: 'باب مصفح تركي أصلي' },
+  { value: 'باب غرفة HPL', label: 'أبواب غرف داخلية HPL' },
+  { value: 'أبواب ميلامين', label: 'أبواب ميلامين عصرية' },
+  { value: 'باب منزلق', label: 'أبواب منزلقة (Sliding Doors)' },
+  { value: 'ديكور جداري WPC', label: 'ألواح وبنلات جدارية WPC' },
+  { value: 'غير ذلك / استفسار عام', label: 'غير ذلك / استفسار عام' },
+]
+
+const colorOptions = [
+  { value: 'غير محدد', label: 'اختر اللون' },
+  { value: 'بني كلاسيكي', label: 'بني كلاسيكي فاخر' },
+  { value: 'بني داكن', label: 'بني داكن' },
+  { value: 'كابتشينو', label: 'كابتشينو (Cappuccino)' },
+  { value: 'بيج فاتح', label: 'بيج فاتح' },
+  { value: 'رمادي داكن', label: 'رمادي داكن' },
+  { value: 'أبيض كلاسيكي', label: 'أبيض كلاسيكي' },
+  { value: 'لم أقرر بعد', label: 'لم أقرر بعد' },
+]
+
+export default function Contact() {
+  const handleSubmit = () => {
+    const name = (document.querySelector('input[name="name"]') as HTMLInputElement)?.value?.trim() || 'عميل مهتم'
+    const phone = (document.querySelector('input[name="phone"]') as HTMLInputElement)?.value?.trim() || 'غير محدد'
+    const product = (document.querySelector('select[name="product"]') as HTMLSelectElement)?.value || 'غير محدد'
+    const color = (document.querySelector('select[name="color"]') as HTMLSelectElement)?.value || 'غير محدد'
+    const qty = (document.querySelector('input[name="quantity"]') as HTMLInputElement)?.value || '1'
+    const notes = (document.querySelector('textarea[name="notes"]') as HTMLTextAreaElement)?.value?.trim() || 'لا توجد ملاحظات إضافية'
+
+    const msg = `مرحباً HM DOORS 👋\n\nلقد قمت بزيارة صفحتكم وأود الاستفسار عن عرض أسعار:\n\n👤 *الاسم الكريم:* ${name}\n📞 *رقم الموبايل:* ${phone}\n🚪 *نوع الباب المطلوب:* ${product}\n🎨 *اللون المفضل:* ${color}\n📦 *الكمية المطلوبة:* ${qty} أبواب\n📝 *ملاحظات إضافية:* ${notes}\n\nيرجى التواصل معي لعرض التفاصيل والأسعار. شكراً لكم!`
+
+    window.open(`https://wa.me/201024209955?text=${encodeURIComponent(msg)}`, '_blank')
+  }
+
+  return (
+    <section id="contact" className="grid grid-cols-1 lg:grid-cols-2">
+      {/* Left */}
+      <div className="relative overflow-hidden bg-[hsl(var(--green-deep))] px-8 lg:px-20 py-20 lg:py-24">
+        <div
+          className="absolute -top-1/2 -right-1/2 w-full h-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%)',
+          }}
+        />
+
+        <div className="relative z-10">
+          <div className="section-label">تواصل معنا</div>
+          <h2 className="section-title reveal mb-12" style={{ transitionDelay: '100ms' }}>
+            يسعدنا <span className="text-[hsl(var(--gold))]">تواصلك</span><br />معنا في أي وقت
+          </h2>
+
+          <div className="space-y-8">
+            {contactInfo.map((item, i) => (
+              <div key={i} className="flex gap-5 reveal" style={{ transitionDelay: `${200 + i * 100}ms` }}>
+                <div className="w-12 h-12 flex-shrink-0 bg-[hsl(var(--gold)/0.1)] border border-[hsl(var(--gold)/0.4)] rounded-full flex items-center justify-center">
+                  <item.icon size={20} className="text-[hsl(var(--gold))]" />
+                </div>
+                <div>
+                  <h4 className="text-xs tracking-widest text-[hsl(var(--gold))] mb-1.5">{item.title}</h4>
+                  {item.content}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Right - Form */}
+      <div className="px-8 lg:px-20 py-20 lg:py-24 bg-[hsl(var(--dark-2))] reveal">
+        <h3 className="font-['Playfair_Display'] text-2xl lg:text-3xl mb-10 text-[hsl(var(--gold))]">
+          اطلب عروض الأسعار والتفاصيل
+        </h3>
+
+        <div className="space-y-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs tracking-wider text-[hsl(var(--gold))] mb-2">الاسم الكريم</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="اكتب اسمك هنا"
+                className="w-full bg-white/[0.03] border border-[hsl(var(--gold)/0.2)] text-[hsl(var(--cream))] px-4 py-3 text-sm rounded-sm focus:border-[hsl(var(--gold))] focus:bg-[hsl(var(--gold)/0.05)] outline-none transition-all placeholder:text-[hsl(var(--cream-dim))]/50"
+              />
+            </div>
+            <div>
+              <label className="block text-xs tracking-wider text-[hsl(var(--gold))] mb-2">رقم الهاتف</label>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="رقم الموبايل"
+                className="w-full bg-white/[0.03] border border-[hsl(var(--gold)/0.2)] text-[hsl(var(--cream))] px-4 py-3 text-sm rounded-sm focus:border-[hsl(var(--gold))] focus:bg-[hsl(var(--gold)/0.05)] outline-none transition-all placeholder:text-[hsl(var(--cream-dim))]/50"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs tracking-wider text-[hsl(var(--gold))] mb-2">نوع الباب المطلوب</label>
+            <select
+              name="product"
+              className="w-full bg-white/[0.03] border border-[hsl(var(--gold)/0.2)] text-[hsl(var(--cream))] px-4 py-3 text-sm rounded-sm focus:border-[hsl(var(--gold))] focus:bg-[hsl(var(--gold)/0.05)] outline-none transition-all"
+            >
+              {productOptions.map((o) => (
+                <option key={o.value} value={o.value} className="bg-[hsl(var(--dark-3))]">{o.label}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs tracking-wider text-[hsl(var(--gold))] mb-2">اللون المفضل</label>
+              <select
+                name="color"
+                className="w-full bg-white/[0.03] border border-[hsl(var(--gold)/0.2)] text-[hsl(var(--cream))] px-4 py-3 text-sm rounded-sm focus:border-[hsl(var(--gold))] focus:bg-[hsl(var(--gold)/0.05)] outline-none transition-all"
+              >
+                {colorOptions.map((o) => (
+                  <option key={o.value} value={o.value} className="bg-[hsl(var(--dark-3))]">{o.label}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs tracking-wider text-[hsl(var(--gold))] mb-2">الكمية المطلوبة</label>
+              <input
+                type="number"
+                name="quantity"
+                min="1"
+                defaultValue="1"
+                placeholder="1"
+                className="w-full bg-white/[0.03] border border-[hsl(var(--gold)/0.2)] text-[hsl(var(--cream))] px-4 py-3 text-sm rounded-sm focus:border-[hsl(var(--gold))] focus:bg-[hsl(var(--gold)/0.05)] outline-none transition-all placeholder:text-[hsl(var(--cream-dim))]/50"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs tracking-wider text-[hsl(var(--gold))] mb-2">تفاصيل أو متطلبات خاصة</label>
+            <textarea
+              name="notes"
+              rows={4}
+              placeholder="اكتب أي ملاحظات أو أبعاد أو استفسارات إضافية..."
+              className="w-full bg-white/[0.03] border border-[hsl(var(--gold)/0.2)] text-[hsl(var(--cream))] px-4 py-3 text-sm rounded-sm focus:border-[hsl(var(--gold))] focus:bg-[hsl(var(--gold)/0.05)] outline-none transition-all resize-none placeholder:text-[hsl(var(--cream-dim))]/50"
+            />
+          </div>
+
+          <button
+            onClick={handleSubmit}
+            className="w-full bg-gradient-to-br from-[hsl(var(--gold))] to-[hsl(var(--gold-dark))] text-[hsl(var(--dark-1))] py-4 rounded-sm font-bold text-base tracking-wide hover:-translate-y-0.5 hover:shadow-xl hover:shadow-[hsl(var(--gold)/0.3)] transition-all duration-300"
+          >
+            إرسال الطلب عبر واتساب مباشرة ✉️
+          </button>
+        </div>
+      </div>
+    </section>
+  )
+}
